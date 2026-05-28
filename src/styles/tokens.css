@@ -1,0 +1,96 @@
+:root {
+  /* === Brand === */
+  --brand-primary: 263 70% 50%;
+  --brand-primary-hover: 263 70% 45%;
+  --brand-accent: 174 60% 51%;
+
+  /* === Semantic Background === */
+  --background: 0 0% 100%;
+  --foreground: 222 47% 11%;
+  --surface: 210 40% 98%;
+  --surface-raised: 0 0% 100%;
+
+  /* === UI Chrome === */
+  --border: 214 32% 91%;
+  --border-strong: 214 32% 80%;
+  --ring: 263 70% 50%;
+
+  /* === Text === */
+  --text-primary: 222 47% 11%;
+  --text-secondary: 215 20% 45%;
+  --text-disabled: 215 20% 65%;
+  --text-inverse: 0 0% 100%;
+
+  /* === Status === */
+  --success: 160 60% 40%;
+  --success-subtle: 160 60% 95%;
+  --warning: 38 92% 50%;
+  --warning-subtle: 38 92% 95%;
+  --error: 0 72% 51%;
+  --error-subtle: 0 72% 97%;
+  --info: 199 89% 48%;
+  --info-subtle: 199 89% 95%;
+
+  /* === Radius === */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-full: 9999px;
+
+  /* === Shadows === */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+
+  /* === Spacing scale (extra tokens beyond Tailwind defaults) === */
+  --space-18: 4.5rem;
+  --space-22: 5.5rem;
+
+  /* === shadcn/ui compatibility aliases === */
+  /* Maps shadcn semantic vars to OctoLearn tokens so components use our palette */
+  --primary: hsl(var(--brand-primary));
+  --primary-foreground: hsl(var(--text-inverse));
+  --secondary: hsl(var(--surface));
+  --secondary-foreground: hsl(var(--text-primary));
+  --card: hsl(var(--surface-raised));
+  --card-foreground: hsl(var(--text-primary));
+  --popover: hsl(var(--surface-raised));
+  --popover-foreground: hsl(var(--text-primary));
+  --muted: hsl(var(--surface));
+  --muted-foreground: hsl(var(--text-secondary));
+  --accent: hsl(var(--brand-accent));
+  --accent-foreground: hsl(var(--text-primary));
+  --destructive: hsl(var(--error));
+  --input: hsl(var(--border));
+  --radius: var(--radius-md);
+
+  /* shadcn sidebar (defaults, not actively used) */
+  --sidebar: hsl(var(--surface));
+  --sidebar-foreground: hsl(var(--text-primary));
+  --sidebar-primary: hsl(var(--brand-primary));
+  --sidebar-primary-foreground: hsl(var(--text-inverse));
+  --sidebar-accent: hsl(var(--brand-accent));
+  --sidebar-accent-foreground: hsl(var(--text-primary));
+  --sidebar-border: hsl(var(--border));
+  --sidebar-ring: hsl(var(--ring));
+}
+
+.dark {
+  --background: 222 47% 4%;
+  --foreground: 210 40% 98%;
+  --surface: 222 47% 7%;
+  --surface-raised: 222 47% 10%;
+
+  --border: 217 33% 17%;
+  --border-strong: 217 33% 25%;
+
+  --text-primary: 210 40% 98%;
+  --text-secondary: 215 20% 65%;
+  --text-disabled: 215 20% 40%;
+
+  --success-subtle: 160 60% 10%;
+  --warning-subtle: 38 92% 10%;
+  --error-subtle: 0 72% 10%;
+  --info-subtle: 199 89% 10%;
+}
