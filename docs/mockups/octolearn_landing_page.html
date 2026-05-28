@@ -1,0 +1,627 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap');
+
+  .ol-root {
+    font-family: 'DM Sans', sans-serif;
+    background: #0a0a0f;
+    color: #e8e6ff;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  .ol-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 40px;
+    border-bottom: 0.5px solid rgba(139,120,255,0.15);
+  }
+  .ol-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    color: #e8e6ff;
+    letter-spacing: -0.3px;
+  }
+  .ol-logo-mark {
+    width: 32px;
+    height: 32px;
+  }
+  .ol-nav-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    font-size: 13px;
+    color: rgba(232,230,255,0.55);
+  }
+  .ol-nav-links span { cursor: pointer; transition: color 0.2s; }
+  .ol-nav-links span:hover { color: #e8e6ff; }
+  .ol-nav-cta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .btn-ghost {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: rgba(232,230,255,0.6);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px 16px;
+  }
+  .btn-primary {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: #0a0a0f;
+    background: #8b78ff;
+    border: none;
+    border-radius: 8px;
+    padding: 9px 20px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .btn-primary:hover { background: #a090ff; }
+  .btn-primary-lg {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: #0a0a0f;
+    background: #8b78ff;
+    border: none;
+    border-radius: 10px;
+    padding: 14px 32px;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .btn-primary-lg:hover { background: #a090ff; }
+  .btn-outline-lg {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    color: rgba(232,230,255,0.7);
+    background: none;
+    border: 0.5px solid rgba(139,120,255,0.35);
+    border-radius: 10px;
+    padding: 14px 32px;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .btn-outline-lg:hover { border-color: rgba(139,120,255,0.7); color: #e8e6ff; }
+
+  /* HERO */
+  .ol-hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 72px 40px 80px;
+    gap: 40px;
+    position: relative;
+  }
+  .ol-hero-glow {
+    position: absolute;
+    top: -60px;
+    right: -80px;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(139,120,255,0.12) 0%, transparent 70%);
+    pointer-events: none;
+    border-radius: 50%;
+  }
+  .ol-hero-left { position: relative; z-index: 1; }
+  .ol-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 500;
+    color: #8b78ff;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    border: 0.5px solid rgba(139,120,255,0.3);
+    border-radius: 100px;
+    padding: 5px 12px;
+    margin-bottom: 24px;
+  }
+  .ol-hero-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 52px;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -2px;
+    color: #f0eeff;
+    margin: 0 0 20px;
+  }
+  .ol-hero-title em {
+    font-style: normal;
+    color: #8b78ff;
+  }
+  .ol-hero-sub {
+    font-size: 16px;
+    line-height: 1.7;
+    color: rgba(232,230,255,0.55);
+    margin: 0 0 36px;
+    max-width: 420px;
+    font-weight: 300;
+  }
+  .ol-hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .ol-hero-social {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 40px;
+    font-size: 12px;
+    color: rgba(232,230,255,0.35);
+  }
+  .ol-hero-avatars {
+    display: flex;
+  }
+  .ol-avatar {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: 1.5px solid #0a0a0f;
+    margin-left: -6px;
+    background: #2a2260;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    font-weight: 500;
+    color: #8b78ff;
+  }
+  .ol-avatar:first-child { margin-left: 0; }
+
+  /* MASCOT */
+  .ol-mascot-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+  .ol-mascot-bg {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(139,120,255,0.08) 0%, transparent 70%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .ol-arm-badge {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(20,18,40,0.9);
+    border: 0.5px solid rgba(139,120,255,0.25);
+    border-radius: 8px;
+    padding: 7px 11px;
+    font-size: 11px;
+    font-weight: 500;
+    color: rgba(232,230,255,0.85);
+    white-space: nowrap;
+  }
+  .ol-badge-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+  }
+
+  /* SECTION */
+  .ol-section { padding: 80px 40px; }
+  .ol-section-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #8b78ff;
+    margin-bottom: 12px;
+  }
+  .ol-section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 36px;
+    font-weight: 700;
+    letter-spacing: -1px;
+    color: #f0eeff;
+    margin: 0 0 14px;
+    line-height: 1.15;
+  }
+  .ol-section-sub {
+    font-size: 15px;
+    color: rgba(232,230,255,0.5);
+    line-height: 1.7;
+    max-width: 480px;
+    font-weight: 300;
+    margin: 0 0 48px;
+  }
+
+  /* PAIN POINTS */
+  .ol-pain { background: #0d0c18; border-top: 0.5px solid rgba(139,120,255,0.1); border-bottom: 0.5px solid rgba(139,120,255,0.1); }
+  .ol-pain-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(139,120,255,0.1); border-radius: 12px; overflow: hidden; }
+  .ol-pain-item {
+    background: #0d0c18;
+    padding: 32px 28px;
+  }
+  .ol-pain-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: rgba(139,120,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    color: #8b78ff;
+    font-size: 16px;
+  }
+  .ol-pain-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: #e8e6ff;
+    margin: 0 0 8px;
+  }
+  .ol-pain-text { font-size: 13px; color: rgba(232,230,255,0.45); line-height: 1.6; margin: 0; font-weight: 300; }
+
+  /* HOW IT WORKS */
+  .ol-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .ol-step {
+    position: relative;
+    padding: 28px;
+    border: 0.5px solid rgba(139,120,255,0.15);
+    border-radius: 12px;
+    background: rgba(139,120,255,0.03);
+  }
+  .ol-step-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 48px;
+    font-weight: 800;
+    color: rgba(139,120,255,0.12);
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+  .ol-step-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: #e8e6ff;
+    margin: 0 0 8px;
+  }
+  .ol-step-text { font-size: 13px; color: rgba(232,230,255,0.5); line-height: 1.6; margin: 0; font-weight: 300; }
+  .ol-step-arrow {
+    position: absolute;
+    top: 50%;
+    right: -16px;
+    transform: translateY(-50%);
+    width: 8px;
+    height: 8px;
+    border-right: 1.5px solid rgba(139,120,255,0.3);
+    border-top: 1.5px solid rgba(139,120,255,0.3);
+    transform: translateY(-50%) rotate(45deg);
+    z-index: 1;
+  }
+
+  /* FEATURES */
+  .ol-feat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .ol-feat-card {
+    padding: 24px;
+    border: 0.5px solid rgba(139,120,255,0.12);
+    border-radius: 12px;
+    background: rgba(139,120,255,0.03);
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .ol-feat-card:hover { border-color: rgba(139,120,255,0.3); background: rgba(139,120,255,0.06); }
+  .ol-feat-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 9px;
+    background: rgba(139,120,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #8b78ff;
+    font-size: 17px;
+    margin-bottom: 14px;
+  }
+  .ol-feat-title { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 600; color: #e8e6ff; margin: 0 0 6px; }
+  .ol-feat-text { font-size: 12px; color: rgba(232,230,255,0.45); line-height: 1.6; margin: 0; font-weight: 300; }
+
+  /* CTA */
+  .ol-cta {
+    background: linear-gradient(135deg, rgba(139,120,255,0.1) 0%, rgba(139,120,255,0.03) 100%);
+    border: 0.5px solid rgba(139,120,255,0.2);
+    border-radius: 20px;
+    padding: 72px 40px;
+    text-align: center;
+    margin: 0 40px 80px;
+  }
+  .ol-cta-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 42px;
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    color: #f0eeff;
+    margin: 0 0 16px;
+    line-height: 1.1;
+  }
+  .ol-cta-sub { font-size: 15px; color: rgba(232,230,255,0.5); margin: 0 0 36px; font-weight: 300; }
+  .ol-cta-actions { display: flex; justify-content: center; gap: 12px; }
+
+  /* FOOTER */
+  .ol-footer {
+    padding: 28px 40px;
+    border-top: 0.5px solid rgba(139,120,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .ol-footer-copy { font-size: 12px; color: rgba(232,230,255,0.3); }
+  .ol-footer-links { display: flex; gap: 24px; font-size: 12px; color: rgba(232,230,255,0.3); }
+  .ol-footer-links span { cursor: pointer; }
+  .ol-footer-links span:hover { color: rgba(232,230,255,0.6); }
+</style>
+
+<div class="ol-root">
+  <h2 class="sr-only">OctoLearn landing page mockup — showing navbar, hero, features and CTA sections</h2>
+
+  <!-- NAV -->
+  <nav class="ol-nav">
+    <div class="ol-logo">
+      <svg class="ol-logo-mark" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="16" cy="16" r="15" fill="rgba(139,120,255,0.15)" stroke="rgba(139,120,255,0.4)" stroke-width="0.5"/>
+        <ellipse cx="16" cy="14" rx="7" ry="6" fill="#8b78ff"/>
+        <circle cx="13.5" cy="12.5" r="1.5" fill="white" opacity="0.9"/>
+        <circle cx="18.5" cy="12.5" r="1.5" fill="white" opacity="0.9"/>
+        <circle cx="13.8" cy="12.2" r="0.6" fill="#0a0a0f"/>
+        <circle cx="18.8" cy="12.2" r="0.6" fill="#0a0a0f"/>
+        <path d="M10 18 Q9 22 7 24 Q9 24 10.5 22" fill="#8b78ff"/>
+        <path d="M12 19.5 Q11 24 9 26 Q11 26 12.5 23.5" fill="#8b78ff"/>
+        <path d="M14.5 20 Q14 25 13 27 Q15 27 15.5 24" fill="#8b78ff"/>
+        <path d="M16.5 20 Q17 25 18 27 Q16 27 15.5 24" fill="#7a68ee"/>
+        <path d="M19 19.5 Q20 24 22 26 Q20 26 18.5 23.5" fill="#7a68ee"/>
+        <path d="M21.5 18 Q22.5 22 24 24 Q22 24 20.5 22" fill="#7a68ee"/>
+      </svg>
+      OctoLearn
+    </div>
+    <div class="ol-nav-links">
+      <span>How it works</span>
+      <span>Features</span>
+      <span>Pricing</span>
+      <span>Blog</span>
+    </div>
+    <div class="ol-nav-cta">
+      <button class="btn-ghost">Sign in</button>
+      <button class="btn-primary">Get started free</button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="ol-hero">
+    <div class="ol-hero-glow"></div>
+    <div class="ol-hero-left">
+      <div class="ol-eyebrow">
+        <i class="ti ti-sparkles" aria-hidden="true"></i>
+        AI-powered knowledge retention
+      </div>
+      <h1 class="ol-hero-title">
+        Study more.<br>Forget <em>less.</em><br>Know more.
+      </h1>
+      <p class="ol-hero-sub">
+        Turn what you studied today into a personalized quiz, get a full learning report, and save everything to Notion or Drive — automatically.
+      </p>
+      <div class="ol-hero-actions">
+        <button class="btn-primary-lg">
+          Start learning free
+          <i class="ti ti-arrow-right" aria-hidden="true"></i>
+        </button>
+        <button class="btn-outline-lg">
+          See how it works
+        </button>
+      </div>
+      <div class="ol-hero-social">
+        <div class="ol-hero-avatars">
+          <div class="ol-avatar">A</div>
+          <div class="ol-avatar">R</div>
+          <div class="ol-avatar">M</div>
+          <div class="ol-avatar">K</div>
+        </div>
+        <span>Trusted by 200+ engineers studying in public</span>
+      </div>
+    </div>
+
+    <!-- Mascot -->
+    <div class="ol-mascot-wrap">
+      <div class="ol-mascot-bg">
+        <svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="100" cy="88" rx="50" ry="42" fill="#8b78ff"/>
+          <ellipse cx="100" cy="88" rx="50" ry="42" fill="url(#octobody)"/>
+          <defs>
+            <radialGradient id="octobody" cx="40%" cy="35%" r="60%">
+              <stop offset="0%" stop-color="#a090ff"/>
+              <stop offset="100%" stop-color="#6a58e0"/>
+            </radialGradient>
+          </defs>
+          <circle cx="88" cy="82" r="10" fill="white" opacity="0.95"/>
+          <circle cx="112" cy="82" r="10" fill="white" opacity="0.95"/>
+          <circle cx="89.5" cy="81" r="4.5" fill="#1a1535"/>
+          <circle cx="113.5" cy="81" r="4.5" fill="#1a1535"/>
+          <circle cx="90.5" cy="79.5" r="1.5" fill="white" opacity="0.7"/>
+          <circle cx="114.5" cy="79.5" r="1.5" fill="white" opacity="0.7"/>
+          <path d="M93 95 Q100 100 107 95" stroke="white" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.6"/>
+          <path d="M62 108 Q54 118 50 130 Q54 128 58 132 Q60 122 66 114" fill="#7a68ee"/>
+          <path d="M72 118 Q66 130 65 144 Q69 141 73 145 Q73 132 78 122" fill="#8b78ff"/>
+          <path d="M84 124 Q81 137 82 150 Q86 147 89 151 Q87 138 89 126" fill="#8b78ff"/>
+          <path d="M96 126 Q95 139 97 152 Q100 149 103 152 Q101 139 100 126" fill="#7a68ee"/>
+          <path d="M108 124 Q111 137 110 150 Q106 147 103 151 Q105 138 103 126" fill="#8b78ff"/>
+          <path d="M119 118 Q125 130 126 144 Q122 141 118 145 Q118 132 113 122" fill="#7a68ee"/>
+          <path d="M129 108 Q137 118 141 130 Q137 128 133 132 Q131 122 125 114" fill="#6a58e0"/>
+        </svg>
+
+        <div class="ol-arm-badge" style="top: 20px; left: -20px;">
+          <div class="ol-badge-dot" style="background: #ff7043;"></div>
+          AWS Lambda
+        </div>
+        <div class="ol-arm-badge" style="top: 60px; right: -30px;">
+          <div class="ol-badge-dot" style="background: #4db6ac;"></div>
+          TypeScript
+        </div>
+        <div class="ol-arm-badge" style="bottom: 60px; left: -25px;">
+          <div class="ol-badge-dot" style="background: #7c4dff;"></div>
+          React Native
+        </div>
+        <div class="ol-arm-badge" style="bottom: 20px; right: -20px;">
+          <div class="ol-badge-dot" style="background: #ffca28;"></div>
+          Java
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAIN POINTS -->
+  <section class="ol-section ol-pain">
+    <div style="text-align:center; margin-bottom: 40px;">
+      <div class="ol-section-label">The problem</div>
+      <h2 class="ol-section-title">You study hard. Your memory doesn't cooperate.</h2>
+    </div>
+    <div class="ol-pain-grid">
+      <div class="ol-pain-item">
+        <div class="ol-pain-icon"><i class="ti ti-brain" aria-hidden="true"></i></div>
+        <p class="ol-pain-title">You forget faster than you learn</p>
+        <p class="ol-pain-text">The forgetting curve is brutal. Without active recall, 70% of new knowledge disappears within 24 hours.</p>
+      </div>
+      <div class="ol-pain-item">
+        <div class="ol-pain-icon"><i class="ti ti-books" aria-hidden="true"></i></div>
+        <p class="ol-pain-title">You study many things at once</p>
+        <p class="ol-pain-text">AWS, TypeScript, Java, React — context switching means nothing sticks deeply.</p>
+      </div>
+      <div class="ol-pain-item">
+        <div class="ol-pain-icon"><i class="ti ti-clock-exclamation" aria-hidden="true"></i></div>
+        <p class="ol-pain-title">Re-reading wastes your time</p>
+        <p class="ol-pain-text">Going back to re-watch a video just to remember something you already studied is frustrating and inefficient.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="ol-section">
+    <div class="ol-section-label">How it works</div>
+    <h2 class="ol-section-title">Three steps to actually remembering</h2>
+    <p class="ol-section-sub">Takes less than 2 minutes to set up. Works every time you finish a study session.</p>
+    <div class="ol-steps">
+      <div class="ol-step">
+        <div class="ol-step-num">01</div>
+        <p class="ol-step-title">Tell OctoLearn what you studied</p>
+        <p class="ol-step-text">Enter a subject area (AWS, Java, React) and the topics you covered today. OctoLearn can suggest topics if you're unsure where to start.</p>
+        <div class="ol-step-arrow"></div>
+      </div>
+      <div class="ol-step">
+        <div class="ol-step-num">02</div>
+        <p class="ol-step-title">Take your personalized quiz</p>
+        <p class="ol-step-text">Get 10 questions — 70% multiple choice, 30% descriptive. Wrong answers get hints. 3 wrong attempts triggers a full explanation.</p>
+        <div class="ol-step-arrow"></div>
+      </div>
+      <div class="ol-step">
+        <div class="ol-step-num">03</div>
+        <p class="ol-step-title">Get your report & references</p>
+        <p class="ol-step-text">Receive a score breakdown, learning resume, and curated resource list (free to paid). Save to Notion, Drive, or download as PDF.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="ol-section" style="padding-top: 0;">
+    <div class="ol-section-label">Features</div>
+    <h2 class="ol-section-title">Everything you need to retain what you learn</h2>
+    <p class="ol-section-sub">Built by a software engineer who studies too many things at once.</p>
+    <div class="ol-feat-grid">
+      <div class="ol-feat-card">
+        <div class="ol-feat-icon"><i class="ti ti-chart-dots" aria-hidden="true"></i></div>
+        <p class="ol-feat-title">Smart quiz generation</p>
+        <p class="ol-feat-text">AI generates targeted questions based on exactly what you studied — not generic topic overviews.</p>
+      </div>
+      <div class="ol-feat-card">
+        <div class="ol-feat-icon"><i class="ti ti-target" aria-hidden="true"></i></div>
+        <p class="ol-feat-title">Adaptive feedback</p>
+        <p class="ol-feat-text">Hints on first mistakes, deeper hints on second, full explanations after three attempts.</p>
+      </div>
+      <div class="ol-feat-card">
+        <div class="ol-feat-icon"><i class="ti ti-file-text" aria-hidden="true"></i></div>
+        <p class="ol-feat-title">Learning resume</p>
+        <p class="ol-feat-text">A concise written summary of everything you studied — what it is, why it matters, how topics connect.</p>
+      </div>
+      <div class="ol-feat-card">
+        <div class="ol-feat-icon"><i class="ti ti-link" aria-hidden="true"></i></div>
+        <p class="ol-feat-title">Curated references</p>
+        <p class="ol-feat-text">Free docs, YouTube channels, and paid courses specific to your exact topics — not generic Google results.</p>
+      </div>
+      <div class="ol-feat-card">
+        <div class="ol-feat-icon"><i class="ti ti-brand-notion" aria-hidden="true"></i></div>
+        <p class="ol-feat-title">Notion & Drive export</p>
+        <p class="ol-feat-text">Save your full report directly to your Notion knowledge base or Google Drive with one click.</p>
+      </div>
+      <div class="ol-feat-card">
+        <div class="ol-feat-icon"><i class="ti ti-layout-dashboard" aria-hidden="true"></i></div>
+        <p class="ol-feat-title">Knowledge dashboard</p>
+        <p class="ol-feat-text">Track your progress per subject area. See where you're improving and where you need to revisit.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="ol-cta">
+    <div class="ol-eyebrow" style="display:inline-flex; margin-bottom: 20px;">Free to start — no credit card needed</div>
+    <h2 class="ol-cta-title">Ready to actually<br>remember what you study?</h2>
+    <p class="ol-cta-sub">Join engineers who stopped re-reading the same docs twice.</p>
+    <div class="ol-cta-actions">
+      <button class="btn-primary-lg">
+        Start for free
+        <i class="ti ti-arrow-right" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="ol-footer">
+    <div class="ol-logo" style="font-size:14px;">
+      <svg width="22" height="22" viewBox="0 0 32 32" fill="none">
+        <circle cx="16" cy="16" r="15" fill="rgba(139,120,255,0.15)" stroke="rgba(139,120,255,0.4)" stroke-width="0.5"/>
+        <ellipse cx="16" cy="14" rx="7" ry="6" fill="#8b78ff"/>
+        <circle cx="13.5" cy="12.5" r="1.5" fill="white" opacity="0.9"/>
+        <circle cx="18.5" cy="12.5" r="1.5" fill="white" opacity="0.9"/>
+        <circle cx="13.8" cy="12.2" r="0.6" fill="#0a0a0f"/>
+        <circle cx="18.8" cy="12.2" r="0.6" fill="#0a0a0f"/>
+        <path d="M10 18 Q9 22 7 24 Q9 24 10.5 22" fill="#8b78ff"/>
+        <path d="M12 19.5 Q11 24 9 26 Q11 26 12.5 23.5" fill="#8b78ff"/>
+        <path d="M14.5 20 Q14 25 13 27 Q15 27 15.5 24" fill="#8b78ff"/>
+        <path d="M16.5 20 Q17 25 18 27 Q16 27 15.5 24" fill="#7a68ee"/>
+        <path d="M19 19.5 Q20 24 22 26 Q20 26 18.5 23.5" fill="#7a68ee"/>
+        <path d="M21.5 18 Q22.5 22 24 24 Q22 24 20.5 22" fill="#7a68ee"/>
+      </svg>
+      OctoLearn
+    </div>
+    <div class="ol-footer-copy">© 2026 OctoLearn. All rights reserved.</div>
+    <div class="ol-footer-links">
+      <span>Privacy</span>
+      <span>Terms</span>
+      <span>Contact</span>
+    </div>
+  </footer>
+</div>

@@ -1,0 +1,296 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap');
+
+  .qs-root {
+    font-family: 'DM Sans', sans-serif;
+    background: #0a0a0f;
+    color: #e8e6ff;
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    min-height: 640px;
+  }
+  .qs-sidebar {
+    background: #0d0c18;
+    border-right: 0.5px solid rgba(139,120,255,0.12);
+    padding: 24px 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .qs-logo {
+    display: flex; align-items: center; gap: 8px;
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px; color: #e8e6ff;
+    padding: 0 20px 24px;
+    border-bottom: 0.5px solid rgba(139,120,255,0.1);
+  }
+  .qs-nav { flex: 1; padding: 16px 12px; display: flex; flex-direction: column; gap: 2px; }
+  .qs-nav-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 9px 12px; border-radius: 8px;
+    font-size: 13px; color: rgba(232,230,255,0.5); cursor: pointer;
+  }
+  .qs-nav-item.active { background: rgba(139,120,255,0.12); color: #e8e6ff; }
+  .qs-nav-item.active i { color: #8b78ff; }
+  .qs-nav-item i { font-size: 16px; }
+  .qs-user {
+    padding: 16px 12px;
+    border-top: 0.5px solid rgba(139,120,255,0.1);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .qs-avatar {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: linear-gradient(135deg, #8b78ff, #6a58e0);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 600; color: white; flex-shrink: 0;
+  }
+  .qs-user-name { font-size: 12px; font-weight: 500; color: #e8e6ff; margin: 0; }
+  .qs-user-role { font-size: 11px; color: rgba(232,230,255,0.35); margin: 0; }
+
+  /* MAIN */
+  .qs-main {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .qs-header { width: 100%; max-width: 580px; margin-bottom: 32px; }
+  .qs-back {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 12px; color: rgba(232,230,255,0.35);
+    cursor: pointer; margin-bottom: 16px;
+    transition: color 0.2s;
+  }
+  .qs-back:hover { color: rgba(232,230,255,0.6); }
+  .qs-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 26px; font-weight: 700; letter-spacing: -0.5px;
+    color: #f0eeff; margin: 0 0 6px;
+  }
+  .qs-sub { font-size: 14px; color: rgba(232,230,255,0.45); margin: 0; font-weight: 300; }
+
+  /* FORM */
+  .qs-form { width: 100%; max-width: 580px; display: flex; flex-direction: column; gap: 24px; }
+  .qs-field { display: flex; flex-direction: column; gap: 8px; }
+  .qs-label {
+    font-size: 12px; font-weight: 500; color: rgba(232,230,255,0.6);
+    letter-spacing: 0.3px;
+  }
+  .qs-label span { color: rgba(232,230,255,0.25); font-weight: 400; margin-left: 6px; }
+  .qs-input {
+    background: #0d0c18;
+    border: 0.5px solid rgba(139,120,255,0.2);
+    border-radius: 10px;
+    padding: 13px 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: #e8e6ff;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .qs-input:focus { border-color: rgba(139,120,255,0.6); }
+  .qs-input::placeholder { color: rgba(232,230,255,0.2); }
+  .qs-input.filled { border-color: rgba(139,120,255,0.35); }
+
+  /* TAG INPUT */
+  .qs-tag-area {
+    background: #0d0c18;
+    border: 0.5px solid rgba(139,120,255,0.35);
+    border-radius: 10px;
+    padding: 10px 12px;
+    display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+    min-height: 52px;
+  }
+  .qs-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(139,120,255,0.15);
+    border: 0.5px solid rgba(139,120,255,0.3);
+    border-radius: 6px;
+    padding: 5px 10px;
+    font-size: 12px; font-weight: 500; color: rgba(232,230,255,0.85);
+  }
+  .qs-tag i { font-size: 11px; color: rgba(232,230,255,0.35); cursor: pointer; }
+  .qs-tag-input-inline {
+    background: none; border: none; outline: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px; color: rgba(232,230,255,0.6);
+    min-width: 160px;
+  }
+  .qs-tag-hint { font-size: 11px; color: rgba(232,230,255,0.25); margin: 4px 0 0; }
+
+  /* SUGGESTIONS */
+  .qs-suggestions-label {
+    font-size: 11px; color: rgba(232,230,255,0.35);
+    margin-bottom: 8px; font-weight: 400;
+  }
+  .qs-suggestions { display: flex; flex-wrap: wrap; gap: 8px; }
+  .qs-suggestion {
+    display: inline-flex; align-items: center; gap: 5px;
+    background: rgba(139,120,255,0.05);
+    border: 0.5px solid rgba(139,120,255,0.2);
+    border-radius: 6px;
+    padding: 5px 10px;
+    font-size: 12px; color: rgba(232,230,255,0.55);
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
+  }
+  .qs-suggestion:hover { background: rgba(139,120,255,0.12); border-color: rgba(139,120,255,0.4); color: rgba(232,230,255,0.85); }
+  .qs-suggestion i { font-size: 11px; color: rgba(139,120,255,0.6); }
+
+  /* CONFIG */
+  .qs-config {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+  }
+  .qs-config-card {
+    background: #0d0c18;
+    border: 0.5px solid rgba(139,120,255,0.15);
+    border-radius: 10px;
+    padding: 16px;
+  }
+  .qs-config-label { font-size: 11px; color: rgba(232,230,255,0.4); margin: 0 0 10px; }
+  .qs-stepper { display: flex; align-items: center; gap: 12px; }
+  .qs-step-btn {
+    width: 28px; height: 28px; border-radius: 6px;
+    background: rgba(139,120,255,0.1);
+    border: 0.5px solid rgba(139,120,255,0.2);
+    color: #8b78ff; font-size: 14px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+  }
+  .qs-step-val {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px; font-weight: 700; color: #f0eeff;
+    min-width: 30px; text-align: center;
+  }
+  .qs-step-sub { font-size: 11px; color: rgba(232,230,255,0.3); margin-top: 4px; }
+  .qs-mix-bars { display: flex; height: 6px; border-radius: 3px; overflow: hidden; gap: 1px; }
+  .qs-mix-mc { background: #8b78ff; border-radius: 3px 0 0 3px; flex: 7; }
+  .qs-mix-desc { background: rgba(139,120,255,0.3); border-radius: 0 3px 3px 0; flex: 3; }
+  .qs-mix-legend { display: flex; gap: 12px; margin-top: 8px; }
+  .qs-mix-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: rgba(232,230,255,0.4); }
+  .qs-mix-dot { width: 8px; height: 8px; border-radius: 2px; }
+
+  /* SUBMIT */
+  .qs-submit {
+    width: 100%;
+    background: #8b78ff; color: #0a0a0f;
+    font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 500;
+    border: none; border-radius: 10px; padding: 15px;
+    cursor: pointer; transition: background 0.2s;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+  .qs-submit:hover { background: #a090ff; }
+  .qs-submit-hint { font-size: 11px; color: rgba(232,230,255,0.25); text-align: center; }
+</style>
+
+<div class="qs-root">
+  <h2 class="sr-only">OctoLearn new quiz setup screen — subject area, topics, and quiz configuration</h2>
+
+  <aside class="qs-sidebar">
+    <div class="qs-logo">
+      <svg width="24" height="24" viewBox="0 0 32 32" fill="none">
+        <circle cx="16" cy="16" r="15" fill="rgba(139,120,255,0.15)" stroke="rgba(139,120,255,0.4)" stroke-width="0.5"/>
+        <ellipse cx="16" cy="14" rx="7" ry="6" fill="#8b78ff"/>
+        <circle cx="13.5" cy="12.5" r="1.5" fill="white" opacity="0.9"/>
+        <circle cx="18.5" cy="12.5" r="1.5" fill="white" opacity="0.9"/>
+        <circle cx="13.8" cy="12.2" r="0.6" fill="#0a0a0f"/>
+        <circle cx="18.8" cy="12.2" r="0.6" fill="#0a0a0f"/>
+        <path d="M10 18 Q9 22 7 24 Q9 24 10.5 22" fill="#8b78ff"/>
+        <path d="M14.5 20 Q14 25 13 27 Q15 27 15.5 24" fill="#8b78ff"/>
+        <path d="M16.5 20 Q17 25 18 27 Q16 27 15.5 24" fill="#7a68ee"/>
+        <path d="M21.5 18 Q22.5 22 24 24 Q22 24 20.5 22" fill="#7a68ee"/>
+      </svg>
+      OctoLearn
+    </div>
+    <nav class="qs-nav">
+      <div class="qs-nav-item"><i class="ti ti-layout-dashboard" aria-hidden="true"></i> Dashboard</div>
+      <div class="qs-nav-item active"><i class="ti ti-plus" aria-hidden="true"></i> New quiz</div>
+      <div class="qs-nav-item"><i class="ti ti-file-text" aria-hidden="true"></i> Reports</div>
+    </nav>
+    <div class="qs-user">
+      <div class="qs-avatar">CR</div>
+      <div>
+        <p class="qs-user-name">Caique R.</p>
+        <p class="qs-user-role">Senior Engineer</p>
+      </div>
+    </div>
+  </aside>
+
+  <main class="qs-main">
+    <div class="qs-header">
+      <div class="qs-back"><i class="ti ti-arrow-left" aria-hidden="true"></i> Back to dashboard</div>
+      <h1 class="qs-title">Start a new quiz</h1>
+      <p class="qs-sub">Tell OctoLearn what you studied today and we'll handle the rest.</p>
+    </div>
+
+    <div class="qs-form">
+
+      <!-- SUBJECT AREA -->
+      <div class="qs-field">
+        <label class="qs-label">Subject area <span>What's the main topic?</span></label>
+        <input class="qs-input filled" type="text" value="AWS" placeholder="e.g. AWS, TypeScript, Java..."/>
+      </div>
+
+      <!-- TOPICS -->
+      <div class="qs-field">
+        <label class="qs-label">Topics studied today <span>What specifically did you cover?</span></label>
+        <div class="qs-tag-area">
+          <span class="qs-tag">Lambda cold starts <i class="ti ti-x" aria-hidden="true"></i></span>
+          <span class="qs-tag">Execution context <i class="ti ti-x" aria-hidden="true"></i></span>
+          <span class="qs-tag">Lambda layers <i class="ti ti-x" aria-hidden="true"></i></span>
+          <input class="qs-tag-input-inline" type="text" placeholder="Add a topic and press Enter..."/>
+        </div>
+        <p class="qs-tag-hint">Press Enter after each topic · Add as many as you studied</p>
+      </div>
+
+      <!-- AI SUGGESTIONS -->
+      <div class="qs-field">
+        <p class="qs-suggestions-label"><i class="ti ti-sparkles" style="font-size:11px; color:#8b78ff;" aria-hidden="true"></i> Suggested topics for AWS — click to add</p>
+        <div class="qs-suggestions">
+          <span class="qs-suggestion"><i class="ti ti-plus" aria-hidden="true"></i> VPC configuration</span>
+          <span class="qs-suggestion"><i class="ti ti-plus" aria-hidden="true"></i> IAM roles & policies</span>
+          <span class="qs-suggestion"><i class="ti ti-plus" aria-hidden="true"></i> S3 lifecycle rules</span>
+          <span class="qs-suggestion"><i class="ti ti-plus" aria-hidden="true"></i> CloudWatch alarms</span>
+          <span class="qs-suggestion"><i class="ti ti-plus" aria-hidden="true"></i> API Gateway</span>
+          <span class="qs-suggestion"><i class="ti ti-plus" aria-hidden="true"></i> DynamoDB streams</span>
+        </div>
+      </div>
+
+      <!-- CONFIG -->
+      <div class="qs-field">
+        <label class="qs-label">Quiz configuration</label>
+        <div class="qs-config">
+          <div class="qs-config-card">
+            <p class="qs-config-label">Number of questions</p>
+            <div class="qs-stepper">
+              <div class="qs-step-btn">−</div>
+              <div class="qs-step-val">10</div>
+              <div class="qs-step-btn">+</div>
+            </div>
+            <p class="qs-step-sub">Range: 5 – 20 questions</p>
+          </div>
+          <div class="qs-config-card">
+            <p class="qs-config-label">Question mix</p>
+            <div class="qs-mix-bars">
+              <div class="qs-mix-mc"></div>
+              <div class="qs-mix-desc"></div>
+            </div>
+            <div class="qs-mix-legend">
+              <span class="qs-mix-item"><div class="qs-mix-dot" style="background:#8b78ff;"></div> 7 multiple choice</span>
+              <span class="qs-mix-item"><div class="qs-mix-dot" style="background:rgba(139,120,255,0.3);"></div> 3 descriptive</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUBMIT -->
+      <button class="qs-submit">
+        <i class="ti ti-sparkles" aria-hidden="true"></i>
+        Generate my quiz
+      </button>
+      <p class="qs-submit-hint">Takes about 5 seconds · Powered by Claude AI</p>
+
+    </div>
+  </main>
+</div>

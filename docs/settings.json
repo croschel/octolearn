@@ -1,0 +1,74 @@
+{
+  "version": "1.0",
+  "project": "octolearn",
+
+  "models": {
+    "default": "claude-haiku-4-5",
+    "reasoning": "claude-sonnet-4-6",
+    "tasks": {
+      "quiz-generation": "claude-haiku-4-5",
+      "answer-evaluation": "claude-haiku-4-5",
+      "explanation": "claude-sonnet-4-6",
+      "report-generation": "claude-haiku-4-5",
+      "notion-export": "claude-haiku-4-5",
+      "drive-export": "claude-haiku-4-5",
+      "code-generation": "claude-sonnet-4-6",
+      "code-review": "claude-sonnet-4-6"
+    }
+  },
+
+  "permissions": {
+    "allow": [
+      "filesystem:read",
+      "filesystem:write",
+      "mcp:notion-mcp",
+      "mcp:google-drive-mcp",
+      "mcp:supabase-mcp",
+      "mcp:filesystem-mcp",
+      "shell:npm",
+      "shell:npx",
+      "shell:git"
+    ],
+    "deny": [
+      "shell:rm -rf",
+      "filesystem:write:.env*",
+      "shell:curl",
+      "shell:wget"
+    ]
+  },
+
+  "tools": {
+    "webSearch": false,
+    "codeExecution": true,
+    "fileRead": true,
+    "fileWrite": true,
+    "mcpServers": ["notion-mcp", "google-drive-mcp", "supabase-mcp", "filesystem-mcp"]
+  },
+
+  "promptCaching": {
+    "enabled": true,
+    "targets": ["system-prompts", "quiz-session-context"]
+  },
+
+  "hooks": {
+    "pre-commit": "./hooks-cc/pre-commit.sh",
+    "pre-push": "./hooks-cc/pre-push.sh",
+    "post-task": "./hooks-cc/post-task.sh",
+    "on-error": "./hooks-cc/on-error.sh"
+  },
+
+  "context": {
+    "autoInclude": [
+      "CLAUDE.md",
+      "rules/",
+      "types/",
+      "styles/tokens.css"
+    ],
+    "ignore": [
+      "node_modules/",
+      ".next/",
+      "*.lock",
+      "*.log"
+    ]
+  }
+}

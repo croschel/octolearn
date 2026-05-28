@@ -1,0 +1,361 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap');
+
+  .rp-root {
+    font-family: 'DM Sans', sans-serif;
+    background: #0a0a0f;
+    color: #e8e6ff;
+    min-height: 800px;
+    position: relative;
+  }
+
+  /* TOPBAR */
+  .rp-topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 40px;
+    border-bottom: 0.5px solid rgba(139,120,255,0.1);
+  }
+  .rp-topbar-left { display: flex; align-items: center; gap: 10px; }
+  .rp-back { font-size: 12px; color: rgba(232,230,255,0.35); cursor: pointer; display: flex; align-items: center; gap: 5px; }
+  .rp-topbar-title { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 600; color: rgba(232,230,255,0.6); }
+
+  /* CONTENT */
+  .rp-content { max-width: 720px; margin: 0 auto; padding: 40px 40px 120px; }
+
+  /* SCORE HERO */
+  .rp-hero {
+    display: grid; grid-template-columns: auto 1fr; gap: 32px;
+    align-items: center;
+    background: #0d0c18;
+    border: 0.5px solid rgba(139,120,255,0.2);
+    border-radius: 16px;
+    padding: 32px;
+    margin-bottom: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .rp-hero-glow {
+    position: absolute; top: -40px; right: -40px;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(29,158,117,0.1) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .rp-donut-wrap { position: relative; width: 100px; height: 100px; flex-shrink: 0; }
+  .rp-donut-label {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  .rp-donut-pct { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; color: #4dcda0; line-height: 1; }
+  .rp-donut-sub { font-size: 10px; color: rgba(232,230,255,0.35); }
+  .rp-hero-right {}
+  .rp-result-label {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 11px; font-weight: 500;
+    color: #4dcda0;
+    background: rgba(29,158,117,0.1);
+    border: 0.5px solid rgba(29,158,117,0.25);
+    border-radius: 100px; padding: 4px 10px;
+    margin-bottom: 10px;
+  }
+  .rp-hero-title { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 700; color: #f0eeff; margin: 0 0 6px; }
+  .rp-hero-meta { font-size: 12px; color: rgba(232,230,255,0.4); margin: 0 0 16px; }
+  .rp-breakdown { display: flex; gap: 20px; }
+  .rp-breakdown-item {}
+  .rp-breakdown-val { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700; color: #f0eeff; margin: 0; }
+  .rp-breakdown-label { font-size: 10px; color: rgba(232,230,255,0.35); margin: 2px 0 0; }
+  .rp-breakdown-divider { width: 0.5px; background: rgba(139,120,255,0.15); }
+
+  /* SECTIONS */
+  .rp-section { margin-bottom: 24px; }
+  .rp-section-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .rp-section-title { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 600; color: #e8e6ff; display: flex; align-items: center; gap: 8px; margin: 0; }
+  .rp-section-title i { color: #8b78ff; font-size: 15px; }
+  .rp-toggle-btn { font-size: 11px; color: rgba(139,120,255,0.6); cursor: pointer; }
+
+  /* REVIEW CARDS */
+  .rp-review-cards { display: flex; flex-direction: column; gap: 8px; }
+  .rp-review-card {
+    display: flex; align-items: flex-start; gap: 10px;
+    background: rgba(239,159,39,0.06);
+    border: 0.5px solid rgba(239,159,39,0.2);
+    border-radius: 8px; padding: 12px 14px;
+  }
+  .rp-review-icon { color: #f5b942; font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+  .rp-review-title { font-size: 13px; font-weight: 500; color: rgba(232,230,255,0.85); margin: 0 0 2px; }
+  .rp-review-sub { font-size: 11px; color: rgba(232,230,255,0.35); margin: 0; }
+
+  /* RESUME */
+  .rp-resume-box {
+    background: #0d0c18;
+    border: 0.5px solid rgba(139,120,255,0.15);
+    border-radius: 10px;
+    padding: 20px;
+  }
+  .rp-resume-text { font-size: 13px; color: rgba(232,230,255,0.65); line-height: 1.75; margin: 0; font-weight: 300; }
+  .rp-resume-text strong { color: rgba(232,230,255,0.9); font-weight: 500; }
+
+  /* REFERENCES */
+  .rp-refs { display: flex; flex-direction: column; gap: 10px; }
+  .rp-ref-topic {
+    background: #0d0c18;
+    border: 0.5px solid rgba(139,120,255,0.12);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .rp-ref-topic-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 13px 16px; cursor: pointer;
+    font-size: 13px; font-weight: 500; color: #e8e6ff;
+  }
+  .rp-ref-topic-header i { color: rgba(232,230,255,0.3); font-size: 14px; }
+  .rp-ref-body { padding: 0 16px 14px; }
+  .rp-ref-tier { margin-bottom: 12px; }
+  .rp-ref-tier:last-child { margin-bottom: 0; }
+  .rp-tier-label {
+    font-size: 10px; font-weight: 500; letter-spacing: 1.2px;
+    text-transform: uppercase; margin: 0 0 7px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .tier-free { color: #4dcda0; }
+  .tier-freemium { color: #f5b942; }
+  .tier-paid { color: rgba(139,120,255,0.8); }
+  .rp-ref-items { display: flex; flex-direction: column; gap: 5px; }
+  .rp-ref-item {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 12px; color: rgba(232,230,255,0.6);
+    padding: 6px 10px;
+    background: rgba(139,120,255,0.03);
+    border: 0.5px solid rgba(139,120,255,0.08);
+    border-radius: 6px;
+    cursor: pointer; transition: border-color 0.15s;
+  }
+  .rp-ref-item:hover { border-color: rgba(139,120,255,0.25); color: rgba(232,230,255,0.85); }
+  .rp-ref-item i { font-size: 12px; flex-shrink: 0; }
+  .rp-ref-type {
+    margin-left: auto; font-size: 10px;
+    padding: 2px 6px; border-radius: 4px;
+    background: rgba(139,120,255,0.08);
+    color: rgba(139,120,255,0.6);
+    flex-shrink: 0;
+  }
+
+  /* STICKY EXPORT BAR */
+  .rp-export-bar {
+    position: sticky; bottom: 0;
+    background: rgba(10,10,15,0.95);
+    border-top: 0.5px solid rgba(139,120,255,0.15);
+    padding: 14px 40px;
+    display: flex; align-items: center; justify-content: space-between;
+    backdrop-filter: blur(8px);
+  }
+  .rp-export-label { font-size: 12px; color: rgba(232,230,255,0.4); }
+  .rp-export-actions { display: flex; gap: 10px; }
+  .rp-export-btn {
+    display: flex; align-items: center; gap: 7px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px; font-weight: 500;
+    border-radius: 8px; padding: 9px 16px; cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .rp-export-btn i { font-size: 14px; }
+  .rp-export-pdf {
+    background: none; color: rgba(232,230,255,0.7);
+    border: 0.5px solid rgba(139,120,255,0.25);
+  }
+  .rp-export-pdf:hover { background: rgba(139,120,255,0.08); border-color: rgba(139,120,255,0.4); }
+  .rp-export-notion {
+    background: none; color: rgba(232,230,255,0.7);
+    border: 0.5px solid rgba(139,120,255,0.25);
+  }
+  .rp-export-notion:hover { background: rgba(139,120,255,0.08); }
+  .rp-export-drive {
+    background: #8b78ff; color: #0a0a0f;
+    border: none;
+  }
+  .rp-export-drive:hover { background: #a090ff; }
+</style>
+
+<div class="rp-root">
+  <h2 class="sr-only">OctoLearn quiz report — score breakdown, areas to review, learning resume, references and export options</h2>
+
+  <div class="rp-topbar">
+    <div class="rp-topbar-left">
+      <span class="rp-back"><i class="ti ti-arrow-left" aria-hidden="true"></i> Dashboard</span>
+    </div>
+    <span class="rp-topbar-title">Quiz report — AWS · May 28, 2026</span>
+    <span style="font-size:12px; color:rgba(232,230,255,0.25);">Session #24</span>
+  </div>
+
+  <div class="rp-content">
+
+    <!-- SCORE HERO -->
+    <div class="rp-hero">
+      <div class="rp-hero-glow"></div>
+      <div class="rp-donut-wrap">
+        <svg width="100" height="100" viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="38" fill="none" stroke="rgba(139,120,255,0.1)" stroke-width="10"/>
+          <circle cx="50" cy="50" r="38" fill="none" stroke="#1d9e75" stroke-width="10"
+            stroke-dasharray="215 239" stroke-dashoffset="60" stroke-linecap="round"/>
+        </svg>
+        <div class="rp-donut-label">
+          <p class="rp-donut-pct">80%</p>
+          <p class="rp-donut-sub">score</p>
+        </div>
+      </div>
+      <div class="rp-hero-right">
+        <div class="rp-result-label"><i class="ti ti-check" aria-hidden="true"></i> Great result</div>
+        <p class="rp-hero-title">AWS · Lambda cold starts</p>
+        <p class="rp-hero-meta">Topics: Lambda cold starts · Execution context · Lambda layers · May 28, 2026 · 12 min</p>
+        <div class="rp-breakdown">
+          <div class="rp-breakdown-item">
+            <p class="rp-breakdown-val">8 / 10</p>
+            <p class="rp-breakdown-label">Total correct</p>
+          </div>
+          <div class="rp-breakdown-divider"></div>
+          <div class="rp-breakdown-item">
+            <p class="rp-breakdown-val">6 / 7</p>
+            <p class="rp-breakdown-label">Multiple choice</p>
+          </div>
+          <div class="rp-breakdown-divider"></div>
+          <div class="rp-breakdown-item">
+            <p class="rp-breakdown-val">2 / 3</p>
+            <p class="rp-breakdown-label">Descriptive</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AREAS TO REVIEW -->
+    <div class="rp-section">
+      <div class="rp-section-header">
+        <h2 class="rp-section-title"><i class="ti ti-alert-triangle" aria-hidden="true"></i> Areas to review</h2>
+      </div>
+      <div class="rp-review-cards">
+        <div class="rp-review-card">
+          <i class="ti ti-alert-triangle rp-review-icon" aria-hidden="true"></i>
+          <div>
+            <p class="rp-review-title">Lambda extensions vs layers</p>
+            <p class="rp-review-sub">Took 3 attempts — the distinction between runtime lifecycle and dependency sharing needs reinforcement.</p>
+          </div>
+        </div>
+        <div class="rp-review-card">
+          <i class="ti ti-alert-triangle rp-review-icon" aria-hidden="true"></i>
+          <div>
+            <p class="rp-review-title">Provisioned concurrency vs reserved concurrency</p>
+            <p class="rp-review-sub">Took 3 attempts — understanding when to use each in production is worth revisiting.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LEARNING RESUME -->
+    <div class="rp-section">
+      <div class="rp-section-header">
+        <h2 class="rp-section-title"><i class="ti ti-file-text" aria-hidden="true"></i> Learning resume</h2>
+        <span class="rp-toggle-btn">Collapse</span>
+      </div>
+      <div class="rp-resume-box">
+        <p class="rp-resume-text">
+          <strong>Lambda cold starts</strong> occur when AWS must initialize a new execution environment for a function that hasn't been invoked recently — or at all. This involves downloading your code, bootstrapping the runtime, and running initialization code outside your handler. Cold starts add latency ranging from a few hundred milliseconds to several seconds depending on runtime and package size.
+          <br><br>
+          <strong>Execution context reuse</strong> is the mechanism that makes warm starts fast. When a Lambda function stays warm, AWS reuses the same container, keeping the initialized runtime and any global-scope resources (DB connections, SDK clients) alive between invocations. This is why initializing expensive resources outside your handler is a best practice.
+          <br><br>
+          <strong>Lambda layers</strong> are ZIP archives attached to your function's execution environment — they're the right tool for sharing code libraries, custom runtimes, or binary dependencies across multiple functions. <strong>Lambda extensions</strong> are separate processes that run alongside your function and integrate with the Lambda lifecycle API, making them ideal for observability agents, secrets managers, and security tooling.
+        </p>
+      </div>
+    </div>
+
+    <!-- REFERENCES -->
+    <div class="rp-section">
+      <div class="rp-section-header">
+        <h2 class="rp-section-title"><i class="ti ti-link" aria-hidden="true"></i> References & resources</h2>
+      </div>
+      <div class="rp-refs">
+
+        <div class="rp-ref-topic">
+          <div class="rp-ref-topic-header">
+            Lambda cold starts & execution context
+            <i class="ti ti-chevron-down" aria-hidden="true"></i>
+          </div>
+          <div class="rp-ref-body">
+            <div class="rp-ref-tier">
+              <p class="rp-tier-label tier-free"><i class="ti ti-circle-check" aria-hidden="true"></i> Free</p>
+              <div class="rp-ref-items">
+                <div class="rp-ref-item">
+                  <i class="ti ti-external-link" aria-hidden="true"></i>
+                  AWS Lambda — Understanding container reuse
+                  <span class="rp-ref-type">Docs</span>
+                </div>
+                <div class="rp-ref-item">
+                  <i class="ti ti-brand-youtube" aria-hidden="true"></i>
+                  Be a Better Dev — AWS Lambda Cold Starts Explained
+                  <span class="rp-ref-type">Video</span>
+                </div>
+              </div>
+            </div>
+            <div class="rp-ref-tier">
+              <p class="rp-tier-label tier-freemium"><i class="ti ti-circle-half" aria-hidden="true"></i> Freemium</p>
+              <div class="rp-ref-items">
+                <div class="rp-ref-item">
+                  <i class="ti ti-external-link" aria-hidden="true"></i>
+                  Lumigo — The Complete Guide to AWS Lambda Cold Starts
+                  <span class="rp-ref-type">Article</span>
+                </div>
+              </div>
+            </div>
+            <div class="rp-ref-tier">
+              <p class="rp-tier-label tier-paid"><i class="ti ti-star" aria-hidden="true"></i> Paid</p>
+              <div class="rp-ref-items">
+                <div class="rp-ref-item">
+                  <i class="ti ti-external-link" aria-hidden="true"></i>
+                  Udemy — AWS Certified Developer by Stephane Maarek
+                  <span class="rp-ref-type">$$</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="rp-ref-topic">
+          <div class="rp-ref-topic-header">
+            Lambda layers & extensions
+            <i class="ti ti-chevron-right" aria-hidden="true"></i>
+          </div>
+        </div>
+
+        <div class="rp-ref-topic">
+          <div class="rp-ref-topic-header">
+            Provisioned & reserved concurrency
+            <i class="ti ti-chevron-right" aria-hidden="true"></i>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- STICKY EXPORT BAR -->
+  <div class="rp-export-bar">
+    <span class="rp-export-label">Save this report</span>
+    <div class="rp-export-actions">
+      <button class="rp-export-btn rp-export-pdf">
+        <i class="ti ti-file-download" aria-hidden="true"></i>
+        Download PDF
+      </button>
+      <button class="rp-export-btn rp-export-notion">
+        <i class="ti ti-brand-notion" aria-hidden="true"></i>
+        Save to Notion
+      </button>
+      <button class="rp-export-btn rp-export-drive">
+        <i class="ti ti-brand-google-drive" aria-hidden="true"></i>
+        Save to Drive
+      </button>
+    </div>
+  </div>
+
+</div>
