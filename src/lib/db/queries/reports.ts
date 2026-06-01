@@ -8,6 +8,7 @@ export interface RecentSession {
   completed_at: string | null
   score_percentage: number
   session_id: string
+  report_id: string | null
 }
 
 export async function getReportsForUser(userId: string): Promise<ReportRow[]> {
@@ -41,7 +42,9 @@ export async function getRecentSessions(userId: string, limit = 5): Promise<Rece
 
   const { data, error } = await supabase
     .from('quiz_sessions')
-    .select('id, topics, completed_at, correct_answers, total_questions, subject_areas(title)')
+    .select(
+      'id, topics, completed_at, correct_answers, total_questions, subject_areas(title), reports(id, score_percentage)',
+    )
     .eq('user_id', userId)
     .eq('status', 'completed')
     .order('completed_at', { ascending: false })
@@ -57,19 +60,29 @@ export async function getRecentSessions(userId: string, limit = 5): Promise<Rece
     correct_answers: number
     total_questions: number
     subject_areas: { title: string } | { title: string }[] | null
+    reports:
+      | { id: string; score_percentage: number }
+      | { id: string; score_percentage: number }[]
+      | null
   }
 
-  return (data as unknown as RawRow[]).map((row) => ({
-    id: row.id,
-    subject_area: Array.isArray(row.subject_areas)
-      ? (row.subject_areas[0]?.title ?? 'Unknown')
-      : (row.subject_areas?.title ?? 'Unknown'),
-    topics: row.topics,
-    completed_at: row.completed_at,
-    score_percentage:
-      row.total_questions > 0 ? Math.round((row.correct_answers / row.total_questions) * 100) : 0,
-    session_id: row.id,
-  }))
+  return (data as unknown as RawRow[]).map((row) => {
+    const reportRow = Array.isArray(row.reports) ? row.reports[0] : row.reports
+    const score =
+      reportRow?.score_percentage ??
+      (row.total_questions > 0 ? Math.round((row.correct_answers / row.total_questions) * 100) : 0)
+    return {
+      id: row.id,
+      subject_area: Array.isArray(row.subject_areas)
+        ? (row.subject_areas[0]?.title ?? 'Unknown')
+        : (row.subject_areas?.title ?? 'Unknown'),
+      topics: row.topics,
+      completed_at: row.completed_at,
+      score_percentage: score,
+      session_id: row.id,
+      report_id: reportRow?.id ?? null,
+    }
+  })
 }
 
 export async function getDashboardStats(userId: string): Promise<{

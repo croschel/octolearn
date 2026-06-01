@@ -7,25 +7,10 @@ import {
 } from '@/components/ui/accordion'
 import { ExternalLink } from 'lucide-react'
 import { cn } from '@/lib/utils'
-
-export interface ResourceItem {
-  title: string
-  url: string
-  type: 'Docs' | 'Video' | 'Article' | 'Repo' | 'Course' | 'Book'
-  priceRange?: '$' | '$$' | '$$$'
-}
-
-export interface TopicResources {
-  topic: string
-  free: ResourceItem[]
-  freemium: ResourceItem[]
-  paid: ResourceItem[]
-}
-
-export type ResourceList = TopicResources[]
+import type { ResourceList, ResourceItem } from '@/types/report'
 
 interface ReportReferencesProps {
-  resources?: ResourceList
+  resources?: ResourceList | null
 }
 
 const tierConfig = {
@@ -35,6 +20,7 @@ const tierConfig = {
 } as const
 
 function ResourceLink({ item }: { item: ResourceItem }) {
+  const typeLabel = item.type.charAt(0).toUpperCase() + item.type.slice(1)
   return (
     <a
       href={item.url}
@@ -45,9 +31,11 @@ function ResourceLink({ item }: { item: ResourceItem }) {
       <ExternalLink className="size-3.5 shrink-0 text-text-disabled group-hover:text-brand transition-colors" />
       <span className="flex-1">{item.title}</span>
       <span className="text-[10px] text-text-disabled bg-surface-raised border border-border/30 rounded px-1.5 py-0.5">
-        {item.type}
+        {typeLabel}
       </span>
-      {item.priceRange && <span className="text-[10px] text-text-disabled">{item.priceRange}</span>}
+      {item.price_range && (
+        <span className="text-[10px] text-text-disabled">{item.price_range}</span>
+      )}
     </a>
   )
 }
@@ -88,7 +76,7 @@ export function ReportReferences({ resources }: ReportReferencesProps) {
       </div>
 
       <div className="px-5 py-4">
-        {!resources ? (
+        {resources == null ? (
           <div className="flex flex-col gap-4">
             {[1, 2, 3].map((i) => (
               <div key={i} className="flex flex-col gap-2">

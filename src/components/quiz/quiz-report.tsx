@@ -1,21 +1,32 @@
+'use client'
+
+import { useState } from 'react'
+import dynamic from 'next/dynamic'
 import { ReportScoreHero } from '@/components/quiz/report-score-hero'
 import { ReportAreasToReview } from '@/components/quiz/report-areas-to-review'
 import { ReportResume } from '@/components/quiz/report-resume'
 import { ReportReferences } from '@/components/quiz/report-references'
 import { ReportQuestionBreakdown } from '@/components/quiz/report-question-breakdown'
-import { ReportExportBar } from '@/components/quiz/report-export-bar'
 import type { QuizQuestionRow, QuizSessionRow } from '@/types/database'
-import type { ReportRow } from '@/types/database'
-import type { ResourceList } from '@/components/quiz/report-references'
+import type { Report, ResourceList } from '@/types/report'
+
+// Dynamic import breaks the Turbopack SSR module graph so @react-pdf/renderer never
+// lands in the server bundle — required because the package uses Node-incompatible browser APIs.
+const ReportExportBar = dynamic(
+  () => import('@/components/quiz/report-export-bar').then((m) => m.ReportExportBar),
+  { ssr: false },
+)
 
 interface QuizReportProps {
   session: QuizSessionRow & { subject_area: string }
   questions: QuizQuestionRow[]
-  report: ReportRow | null
+  report: Report
   sessionId: string
 }
 
 export function QuizReport({ session, questions, report, sessionId }: QuizReportProps) {
+  const [resources, setResources] = useState<ResourceList | null>(report.resources)
+
   const mcQuestions = questions.filter((q) => q.type === 'multiple-choice')
   const descQuestions = questions.filter((q) => q.type === 'descriptive')
 
@@ -33,8 +44,6 @@ export function QuizReport({ session, questions, report, sessionId }: QuizReport
     Math.round((new Date(completedAt).getTime() - new Date(startedAt).getTime()) / 60000),
   )
 
-  const resources: ResourceList | undefined = report?.summary ? undefined : undefined
-
   return (
     <div className="max-w-2xl mx-auto px-5 py-8">
       <ReportScoreHero
@@ -49,10 +58,22 @@ export function QuizReport({ session, questions, report, sessionId }: QuizReport
         durationMinutes={durationMinutes}
       />
       <ReportAreasToReview questions={questions} />
-      <ReportResume resume={report?.summary} />
+      <ReportResume
+        resume={report.learning_resume}
+        reportId={report.id}
+        onResourcesLoaded={setResources}
+      />
       <ReportReferences resources={resources} />
       <ReportQuestionBreakdown questions={questions} />
-      <ReportExportBar sessionId={sessionId} reportId={report?.id} />
+      <ReportExportBar
+        sessionId={sessionId}
+        reportId={report.id}
+        notionPageId={report.notion_page_id}
+        subjectArea={session.subject_area}
+        completedAt={completedAt}
+        report={report}
+        questions={questions}
+      />
     </div>
   )
 }

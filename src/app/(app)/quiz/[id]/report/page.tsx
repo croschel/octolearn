@@ -3,6 +3,9 @@ import { redirect } from 'next/navigation'
 import { QuizReport } from '@/components/quiz/quiz-report'
 import { getQuizSessionWithQuestions } from '@/lib/db/queries/quiz'
 import { getReportBySessionId } from '@/lib/db/queries/reports'
+import { generateReport } from '@/actions/reports'
+import type { Report } from '@/types/report'
+
 interface ReportPageProps {
   params: Promise<{ id: string }>
 }
@@ -17,7 +20,14 @@ export default async function ReportPage({ params }: ReportPageProps) {
   if (session.user_id !== userId) redirect('/dashboard')
   if (session.status !== 'completed') redirect(`/quiz/${id}`)
 
-  const report = await getReportBySessionId(id).catch(() => null)
+  // Load existing report or generate one — idempotent: generateReport guards against re-generation
+  let report: Report | null = await getReportBySessionId(id).catch(() => null)
+  if (!report) {
+    const result = await generateReport(id)
+    report = result.data
+  }
+
+  if (!report) redirect('/dashboard')
 
   const sessionWithArea = {
     ...session,
