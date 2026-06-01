@@ -50,6 +50,7 @@
   /* Fonts */
   --font-family-sans: var(--font-sans);
   --font-family-mono: var(--font-mono);
+  --font-family-heading: var(--font-heading);
 }
 
 /* shadcn/ui non-conflicting tokens (sidebar, charts, component aliases) */
