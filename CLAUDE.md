@@ -74,10 +74,6 @@ octolearn/
 ├── components/
 │   ├── ui/                       # shadcn/ui primitives
 │   ├── quiz/                     # Quiz-specific components
-│   │   ├── QuizSetup.tsx         # Title + topics input
-│   │   ├── QuizQuestion.tsx      # Renders MC or descriptive question
-│   │   ├── QuizProgress.tsx      # Progress bar + score
-│   │   └── QuizReport.tsx        # Final report view
 │   ├── dashboard/                # Dashboard components
 │   └── marketing/                # Landing page sections
 │
@@ -94,23 +90,19 @@ octolearn/
 │   │   ├── client.ts             # Supabase client
 │   │   └── queries/              # Typed query functions
 │   ├── integrations/
-│   │   ├── notion.ts             # Notion MCP helpers
-│   │   └── drive.ts              # Google Drive MCP helpers
+│   │   └── notion.ts             # Notion OAuth client helper
 │   └── utils.ts
 │
 ├── actions/                      # Next.js Server Actions
 │   ├── quiz.ts                   # createQuiz, submitAnswer, finishQuiz
-│   ├── reports.ts                # saveReport, exportToNotion, exportToDrive
-│   └── user.ts                   # updatePreferences
+│   ├── reports.ts                # generateReport, retryResume, getPdfData
+│   ├── notion-export.ts          # exportToNotion
+│   └── integrations.ts           # disconnectIntegration
 │
 ├── types/
 │   ├── quiz.ts
 │   ├── report.ts
-│   └── user.ts
-│
-├── hooks/                        # React hooks (client-side)
-│   ├── useQuizSession.ts
-│   └── useReport.ts
+│   └── database.ts
 │
 ├── CLAUDE.md                     # ← You are here
 ├── .mcp.json                     # MCP server config
@@ -131,16 +123,16 @@ doc before starting any task. Do not rely on memory — always read the file.
 
 | Task type                   | Read this first                                        |
 | --------------------------- | ------------------------------------------------------ |
-| Any coding task             | `docs/rules/typescript.md`                             |
-| AI prompt or model decision | `docs/rules/ai-usage.md`                               |
-| Component or styling work   | `docs/rules/ui-style.md` + `docs/rules/base-styles.md` |
-| Database query or schema    | `docs/rules/database.md`                               |
-| Writing tests               | `docs/rules/testing.md`                                |
-| Quiz generation feature     | `docs/skills/quiz-generation.md`                       |
-| Report or export feature    | `docs/skills/report-export.md`                         |
-| Answer evaluation logic     | `docs/agents/quiz-evaluator.md`                        |
-| Notion integration          | `docs/agents/notion-integration.md`                    |
-| Design reference            | `docs/DESIGN.md`                                       |
+| Any coding task             | `docs/typescript.md`                             |
+| AI prompt or model decision | `docs/ai-usage.md`                               |
+| Component or styling work   | `docs/ui-style.md` + `docs/base-styles.md`       |
+| Database query or schema    | `docs/database.md`                               |
+| Writing tests               | `docs/testing.md`                                |
+| Quiz generation feature     | `docs/quiz-generation.md`                        |
+| Report or export feature    | `docs/report-export.md`                          |
+| Answer evaluation logic     | `docs/quiz-evaluator.md`                         |
+| Notion integration          | `docs/notion-integration.md`                     |
+| Design reference            | `docs/DESIGN.md`                                 |
 
 When starting a new session, always read `CLAUDE.md` + the relevant doc above
 before writing a single line of code.
@@ -152,13 +144,13 @@ before writing a single line of code.
 Reference mockups live in `/docs/mockups/`. Always open the relevant mockup
 before implementing a screen or component.
 
-| Mockup                | Screen                                   |
-| --------------------- | ---------------------------------------- |
-| `01-landing-page.png` | Marketing landing page — `/`             |
-| `02-dashboard.png`    | Authenticated dashboard — `/dashboard`   |
-| `03-quiz-setup.png`   | New quiz form — `/quiz/new`              |
-| `04-active-quiz.png`  | Quiz session — `/quiz/[id]`              |
-| `05-quiz-report.png`  | Results and report — `/quiz/[id]/report` |
+| Mockup                             | Screen                                   |
+| ---------------------------------- | ---------------------------------------- |
+| `octolearn_landing_page.html`      | Marketing landing page — `/`             |
+| `octolearn_dashboard.html`         | Authenticated dashboard — `/dashboard`   |
+| `octolearn_quiz_setup.html`        | New quiz form — `/quiz/new`              |
+| `octolearn_active_quiz.html`       | Quiz session — `/quiz/[id]`              |
+| `octolearn_quiz_report.html`       | Results and report — `/quiz/[id]/report` |
 
 When implementing any screen, open its mockup image and treat it as the
 source of truth for layout, spacing, colors, and component structure.
