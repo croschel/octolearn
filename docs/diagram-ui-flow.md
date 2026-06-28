@@ -1,68 +1,142 @@
-
 # OctoLearn — UI Flow Diagram
 
-```mermaid
-flowchart TD
-    A([Visitor]) --> B[Landing Page\n/]
-    B --> C{Authenticated?}
-    C -- No --> D[Sign Up / Sign In\n/sign-up  /sign-in]
-    C -- Yes --> E
-    D --> E[Dashboard\n/dashboard]
+End-to-end navigation map of every screen, branch, and key UI section. Single-line boxes are pages, double-line boxes are decision/branch points, and indented `•` callouts describe sections inside a page.
 
-    E --> F[Stats Row\nTotal quizzes · Avg score · Streak]
-    E --> G[Subject Areas Grid\nOne card per area]
-    E --> H[Recent Activity\nLast 5 sessions]
-    E --> I[New Quiz button]
-    E --> NAV[Bottom Nav / Sidebar]
+```text
+                                  ╔══════════════════════════╗
+                                  ║   👤  VISITOR ARRIVES    ║
+                                  ╚════════════╤═════════════╝
+                                               │
+                                               ▼
+                  ┌────────────────────────────────────────────────────────┐
+                  │  /  LANDING PAGE                          (unauth)       │
+                  │  ──────────────────────────────────────────────────     │
+                  │   • Hero  +  primary CTA                                  │
+                  │   • Features grid                                         │
+                  │   • "How it works" steps                                 │
+                  │   • Footer CTA                                            │
+                  └───────────────┬──────────────────────────┬─────────────-┘
+                       "Sign in"   │                          │  "Get started"
+                                   ▼                          ▼
+                  ┌──────────────────────────┐   ┌──────────────────────────┐
+                  │  /sign-in     (Clerk)     │   │  /sign-up     (Clerk)     │
+                  │  ─────────────────────    │   │  ─────────────────────    │
+                  │   • Email / OAuth         │◄─►│   • Create account        │
+                  └──────────────┬───────────┘   └──────────────┬───────────-┘
+                                 │   auth success                │  auth success
+                                 └───────────────┬──────────────┘
+                                                 ▼
+        ╔═══════════════════════════════════════════════════════════════════════════╗
+        ║                  🔒  AUTHENTICATED APP  (Clerk-gated layout)              ║
+        ╚═══════════════════════════════════════════════════════════════════════════╝
+                                                 │
+                                                 ▼
+   ┌───────────────────────────────────────────────────────────────────────────────────┐
+   │  /dashboard                                                                         │
+   │  ─────────────────────────────────────────────────────────────────────────────-   │
+   │   ┌─────────────────────────────┐   ┌───────────────────────────────────────────┐ │
+   │   │  Stats row                  │   │  Recent activity  (sidebar)               │ │
+   │   │   • Total quizzes           │   │   • Latest quiz attempts                  │ │
+   │   │   • Avg score               │   │   • Quick links to reports                │ │
+   │   │   • Streak 🔥               │   └───────────────────────────────────────────┘ │
+   │   └─────────────────────────────┘                                                  │
+   │   ┌───────────────────────────────────────────────────────────────────────────┐  │
+   │   │  Subject-area cards  (one per knowledge domain — an octopus arm 🐙)        │  │
+   │   └───────────────────────────────────────────────────────────────────────────┘  │
+   └───┬───────────────────────────────┬───────────────────────────────────┬───────────┘
+       │ "New quiz"                     │ "View reports"                     │ "Settings"
+       ▼                                ▼                                    ▼
+   ┌──────────────────────────┐   ┌──────────────────────────┐   ┌──────────────────────────┐
+   │  /quiz/new               │   │  /reports                │   │  /settings               │
+   │  ──────────────────────  │   │  ──────────────────────  │   │  ──────────────────────  │
+   │   • Type subject area    │   │   • History of all       │   │   • Notion OAuth         │
+   │   • AI suggests topics   │   │     past reports         │   │     connect / disconnect │
+   │   • Pick topics          │   │   • Filter / search      │   │   • Account info         │
+   │   • Question count       │   │                          │   │                          │
+   │   • [ Start ] ───────────┐│   └──────────┬───────────┘   └──────────────────────────┘
+   └──────────────────────────┘│              │ open a report                 ▲
+                               ││              │                               │
+            POST createQuiz ───┘│              └───────────────┐               │
+                                │                              │               │
+                                ▼                              ▼               │
+   ┌───────────────────────────────────────────────────────────────────────┐ │
+   │  /quiz/[id]   ACTIVE QUIZ SESSION                                       │ │
+   │  ──────────────────────────────────────────────────────────────────-- │ │
+   │   ▓▓▓▓▓▓▓▓░░░░░░░░  Progress bar   ·   one question at a time           │ │
+   │                                                                         │ │
+   │            ╔══════════════════════════════════════════╗                │ │
+   │            ║  Question type?                           ║                │ │
+   │            ╚══════╤═══════════════════════════╤════════╝                │ │
+   │      MULTIPLE     │                           │   DESCRIPTIVE           │ │
+   │       CHOICE      ▼                           ▼                         │ │
+   │   ┌──────────────────────────┐   ┌──────────────────────────┐          │ │
+   │   │ • 4 options              │   │ • Open text answer       │          │ │
+   │   │ • Select one             │   │ • Submit → AI scores     │          │ │
+   │   └────────────┬─────────────┘   └────────────┬─────────────┘          │ │
+   │                │                               │                        │ │
+   │                ▼                               ▼                        │ │
+   │            ╔══════════════════════════════════════════╗                │ │
+   │            ║  Answer correct?                          ║                │ │
+   │            ╚══════╤════════════════════════════╤═══════╝                │ │
+   │            YES    │                            │  NO                    │ │
+   │                   │                            ▼                        │ │
+   │                   │              ╔══════════════════════════════╗       │ │
+   │                   │              ║  Wrong-attempt counter?      ║       │ │
+   │                   │              ╚═══╤═══════════╤═══════════╤═══╝       │ │
+   │                   │           1st    │      2nd  │      3rd  │           │ │
+   │                   │                  ▼           ▼           ▼           │ │
+   │                   │            ┌──────────┐ ┌──────────┐ ┌────────────────────┐
+   │                   │            │ AI hint  │ │ AI hint  │ │ FULL EXPLANATION   │
+   │                   │            │  #1      │ │  #2      │ │  • MC: shown       │
+   │                   │            └────┬─────┘ └────┬─────┘ │  • Desc: streaming │
+   │                   │                 │            │       │    deep-dive       │
+   │                   │                 │ retry      │ retry └─────────┬──────────┘
+   │                   │                 └─────┬──────┘                 │
+   │                   │       (loop back to answer the question) ↑     │
+   │                   ▼                                                ▼
+   │            ┌───────────────────────────────────────────────────────────┐
+   │            │  [ Next ] ──► advance to next question  (loop to top ↑)    │
+   │            └─────────────────────────────┬─────────────────────────────┘
+   │                                          │  last question answered
+   └──────────────────────────────────────────┼────────────────────────────┘
+                                              │
+                            finishQuiz ──────►▼
+   ┌───────────────────────────────────────────────────────────────────────────────┐
+   │  /quiz/[id]/report   FULL REPORT                            ◄── (also reached    │
+   │  ────────────────────────────────────────────────────────-     from /reports)   │
+   │   ┌─────────────────────────────────────────────────────────────────────────┐  │
+   │   │  🎯  Score hero  (%)                                                     │  │
+   │   └─────────────────────────────────────────────────────────────────────────┘  │
+   │   • Areas to review            (struggled / 3-attempt questions highlighted)     │
+   │   • AI-written learning resume (what · why · how topics connect)                 │
+   │   • Curated references         free → freemium → paid                            │
+   │   • Question breakdown         (MC vs descriptive)                               │
+   │                                                                                  │
+   │  ┌────────────────────────────────────────────────────────────────────────────┐│
+   │  │  STICKY EXPORT BAR                                                          ││
+   │  │   [ ⬇ Download PDF ]        [ 📝 Save to Notion ]                           ││
+   │  └─────────────────────────────────┬──────────────────────────────────────────┘│
+   └────────────────────────────────────┼────────────────────────────────────────---┘
+                                         │  "Save to Notion"
+                                         ▼
+                          ╔══════════════════════════════╗
+                          ║  Notion connected?           ║
+                          ╚═══════╤═══════════════╤═══════╝
+                              YES │               │ NO
+                                  ▼               ▼
+                    ┌──────────────────┐   ┌────────────────────────────┐
+                    │ Export to Notion │   │ Prompt → link to /settings │
+                    │  (MCP) ✓ saved   │   │  to connect OAuth ─────────┼──► /settings
+                    └──────────────────┘   └────────────────────────────┘
 
-    I --> J[Quiz Setup\n/quiz/new]
-    J --> J1[Type subject area]
-    J1 --> J2[AI suggests topics]
-    J2 --> J3[Pick / adjust topics\n+ question count]
-    J3 --> J4[Start Quiz]
 
-    J4 --> K[Active Quiz Session\n/quiz/id]
-    K --> L{Question type}
-
-    L -- Multiple Choice --> M[Show 4 options]
-    M --> N{Correct?}
-    N -- Yes --> R
-    N -- No, attempt 1 --> O1[AI hint shown]
-    O1 --> M
-    N -- No, attempt 2 --> O2[Second AI hint]
-    O2 --> M
-    N -- No, attempt 3 --> O3[Full explanation\n+ streaming deep-dive]
-    O3 --> R
-
-    L -- Descriptive --> P[Open text answer]
-    P --> Q{AI evaluation\nscore ≥ 0.5?}
-    Q -- Correct → R
-    Q -- Wrong, attempt < 3 --> P2[AI feedback]
-    P2 --> P
-    Q -- Wrong, attempt 3 --> P3[Full explanation]
-    P3 --> R
-
-    R{More questions?}
-    R -- Yes --> K
-    R -- No → S[Finish Quiz]
-
-    S --> T[Report Page\n/quiz/id/report]
-    T --> T1[Score Hero\n% · correct · duration]
-    T --> T2[Areas to Review\nstruggled questions]
-    T --> T3[Learning Resume\nAI-written summary]
-    T --> T4[References\nfree · freemium · paid]
-    T --> T5[Question Breakdown\nall Q&A]
-    T --> T6[Export Bar]
-
-    T6 --> EX1[Download PDF]
-    T6 --> EX2[Save to Notion]
-    EX2 -- Not connected --> SET[Settings\n/settings]
-    SET --> SET1[Connect Notion OAuth]
-    SET1 --> EX2
-
-    NAV --> RPT[Reports\n/reports]
-    RPT --> RPT1[All past reports\nfilter by area]
-    RPT1 --> T
-
-    NAV --> SET
+   ┌─────────────────────────────────────────────────────────────────────────────────┐
+   │  LEGEND                                                                            │
+   │  ───────────────────────────────────────────────────────────────────────────--   │
+   │   ┌──┐ single-line box ......... a page / screen (route)                           │
+   │   ╔══╗ double-line box ......... decision / branch point                           │
+   │   •    bullet callout .......... a UI section inside a page                         │
+   │   ──►  labeled arrow ........... navigation / trigger                              │
+   │   ↑    loop ................... returns to a previous step                         │
+   └─────────────────────────────────────────────────────────────────────────────────┘
 ```
