@@ -45,7 +45,6 @@ export interface ReportRow {
   learning_resume: string | null
   resources: import('@/types/report').ResourceList | null
   notion_page_id: string | null
-  drive_file_id: string | null
   created_at: string
 }
 
@@ -113,7 +112,6 @@ export interface Database {
           learning_resume?: string | null
           resources?: import('@/types/report').ResourceList | null
           notion_page_id?: string | null
-          drive_file_id?: string | null
           created_at?: string
         }
         Update: Partial<ReportRow>

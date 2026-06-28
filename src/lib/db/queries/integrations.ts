@@ -5,7 +5,7 @@ import type { Result } from '@/lib/utils/try-catch'
 export interface UserIntegration {
   id: string
   user_id: string
-  provider: 'notion' | 'google'
+  provider: 'notion'
   access_token: string
   refresh_token: string | null
   expires_at: string | null
@@ -25,7 +25,7 @@ export interface IntegrationData {
 
 export async function getUserIntegration(
   userId: string,
-  provider: 'notion' | 'google',
+  provider: 'notion',
 ): Promise<Result<UserIntegration | null>> {
   return tryCatch(async () => {
     const supabase = createServerClient()
@@ -43,7 +43,7 @@ export async function getUserIntegration(
 
 export async function upsertUserIntegration(
   userId: string,
-  provider: 'notion' | 'google',
+  provider: 'notion',
   data: IntegrationData,
 ): Promise<Result<UserIntegration>> {
   return tryCatch(async () => {
@@ -73,7 +73,7 @@ export async function upsertUserIntegration(
 
 export async function deleteUserIntegration(
   userId: string,
-  provider: 'notion' | 'google',
+  provider: 'notion',
 ): Promise<Result<void>> {
   return tryCatch(async () => {
     const supabase = createServerClient()

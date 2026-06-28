@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
-import { Download, FileText, HardDrive, Loader2, CheckCircle, ExternalLink } from 'lucide-react'
+import { Download, FileText, Loader2, CheckCircle, ExternalLink } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { getPdfData, type PdfData } from '@/actions/reports'
 import { exportToNotion } from '@/actions/notion-export'
@@ -178,13 +178,6 @@ export function ReportExportBar({
             </Button>
           )}
 
-          {/* Google Drive — visible but disabled until future phase */}
-          <div title="Coming soon">
-            <Button size="sm" disabled>
-              <HardDrive className="size-3.5" />
-              Save to Drive
-            </Button>
-          </div>
         </div>
       </div>
     </div>

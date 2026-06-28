@@ -18,7 +18,7 @@ The name and mascot (an octopus) represent studying multiple knowledge domains s
 | AI                    | Anthropic SDK via Vercel AI SDK                     |
 | Auth                  | Clerk (free tier)                                   |
 | Database              | Supabase (free tier) — stores quiz history, reports |
-| External Integrations | Notion MCP, Google Drive MCP                        |
+| External Integrations | Notion OAuth                                        |
 | Deployment            | Vercel                                              |
 
 ---
@@ -180,7 +180,7 @@ source of truth for layout, spacing, colors, and component structure.
 - Summary of topics covered
 - Score breakdown (MC vs descriptive)
 - Questions where user struggled (3-attempt questions highlighted)
-- Exportable as PDF, saveable to Notion or Google Drive
+- Exportable as PDF, saveable to Notion
 
 ### Learning Resume & References
 
@@ -216,13 +216,10 @@ NEXT_PUBLIC_SUPABASE_URL=
 NEXT_PUBLIC_SUPABASE_ANON_KEY=
 SUPABASE_SERVICE_ROLE_KEY=
 
-# Notion (if using direct API as fallback)
-NOTION_API_KEY=
-NOTION_ROOT_PAGE_ID=
-
-# Google Drive (if using direct API as fallback)
-GOOGLE_CLIENT_ID=
-GOOGLE_CLIENT_SECRET=
+# Notion OAuth
+NOTION_CLIENT_ID=
+NOTION_CLIENT_SECRET=
+NOTION_REDIRECT_URI=
 ```
 
 ---

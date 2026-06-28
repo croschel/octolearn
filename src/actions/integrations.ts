@@ -5,7 +5,7 @@ import { revalidatePath } from 'next/cache'
 import { deleteUserIntegration } from '@/lib/db/queries/integrations'
 import type { Result } from '@/lib/utils/try-catch'
 
-export async function disconnectIntegration(provider: 'notion' | 'google'): Promise<Result<void>> {
+export async function disconnectIntegration(provider: 'notion'): Promise<Result<void>> {
   const { userId } = await auth()
   if (!userId) {
     return { data: null, error: { message: 'Unauthorized', code: 'UNAUTHORIZED' } }

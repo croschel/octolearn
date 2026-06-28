@@ -21,10 +21,6 @@ export default async function SettingsPage({ searchParams }: SettingsPageProps) 
   const params = await searchParams
   const notionIntegration = notionResult.data ?? null
 
-  // Google integration placeholder — component is hidden in UI via {false && ...}
-  // const googleResult = await getUserIntegration(userId, 'google')
-  // const googleIntegration = googleResult.data ?? null
-
   return (
     <div className="p-6 md:p-8 max-w-2xl">
       <PageHeader title="Settings" subtitle="Manage your account and connected integrations." />
@@ -48,15 +44,6 @@ export default async function SettingsPage({ searchParams }: SettingsPageProps) 
               params.error === 'notion' ? 'Failed to connect Notion. Please try again.' : undefined
             }
           />
-          {/* Google Drive — hidden until Phase 4 */}
-          {false && (
-            <IntegrationCard
-              provider="google"
-              workspaceName={null}
-              isConnected={false}
-              connectHref="/api/auth/google/start"
-            />
-          )}
         </div>
       </section>
 
